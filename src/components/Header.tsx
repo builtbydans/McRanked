@@ -14,7 +14,7 @@ export function Header({ onAnalyse }: HeaderProps) {
           <img
             src="/mcdonalds-logo.png"
             alt="McDonald's"
-            className="h-auto w-[102px] max-w-none select-none"
+            className="h-auto"
             draggable={false}
           />
         </div>
