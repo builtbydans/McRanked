@@ -1,0 +1,265 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 45 17% 97%;
+    --foreground: 222 24% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 24% 11%;
+    --primary: 222 24% 11%;
+    --primary-foreground: 45 17% 97%;
+    --muted: 40 12% 94%;
+    --muted-foreground: 220 7% 46%;
+    --accent: 40 12% 94%;
+    --accent-foreground: 222 24% 11%;
+    --border: 36 10% 87%;
+    --input: 36 10% 85%;
+    --ring: 37 92% 50%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply m-0 min-w-[320px] bg-background text-foreground;
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@media (min-width: 1024px) {
+  #root,
+  #root > div {
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+.leaflet-container {
+  z-index: 0;
+  background: #e9e9e5;
+  font-family: inherit;
+}
+
+.leaflet-tile-pane {
+  filter: grayscale(0.92) saturate(0.3) contrast(0.92) brightness(1.06);
+}
+
+.leaflet-control-zoom {
+  margin-bottom: 24px !important;
+  margin-right: 18px !important;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1) !important;
+}
+
+.leaflet-control-zoom a {
+  border: 0 !important;
+  color: #1c2028 !important;
+}
+
+.leaflet-control-attribution {
+  padding: 2px 5px !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  font-size: 8px !important;
+  backdrop-filter: blur(6px);
+}
+
+.leaflet-interactive {
+  transition:
+    stroke 220ms ease,
+    fill 220ms ease,
+    r 220ms ease;
+}
+
+.map-marker {
+  filter: drop-shadow(0 3px 4px rgba(15, 23, 42, 0.22));
+}
+
+.map-marker-selected {
+  filter: drop-shadow(0 4px 8px rgba(15, 23, 42, 0.3));
+  animation: marker-pulse 1.8s ease-out infinite;
+}
+
+@keyframes marker-pulse {
+  0%,
+  100% {
+    stroke-opacity: 1;
+  }
+  50% {
+    stroke-opacity: 0.65;
+  }
+}
+
+.loading-screen {
+  opacity: 1;
+  transition:
+    opacity 450ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 450ms linear;
+}
+
+.loading-screen--exiting {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.loading-screen__partnership {
+  animation: loading-logo-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  filter: drop-shadow(0 18px 30px rgb(95 0 0 / 0.15));
+}
+
+.loading-screen__partner-mark {
+  animation: loading-partner-mark-in 500ms 280ms
+    cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.loading-screen__progress {
+  animation: loading-progress 2400ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes loading-logo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes loading-partner-mark-in {
+  from {
+    opacity: 0;
+    transform: rotate(-20deg) scale(0.65);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes loading-progress {
+  0% {
+    transform: scaleX(0);
+  }
+  18% {
+    transform: scaleX(0.16);
+  }
+  54% {
+    transform: scaleX(0.58);
+  }
+  82% {
+    transform: scaleX(0.84);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.food-rain__drop {
+  position: absolute;
+  top: 0;
+  left: var(--food-left);
+  width: var(--food-size);
+  height: auto;
+  opacity: 0;
+  user-select: none;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 12px 12px rgb(15 23 42 / 0.18));
+  animation: food-fall var(--food-duration) var(--food-delay)
+    cubic-bezier(0.22, 0.5, 0.32, 1) both;
+}
+
+.food-rain__drop--burger {
+  mix-blend-mode: multiply;
+}
+
+@keyframes food-fall {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50%, -180px, 0) rotate(0deg) scale(0.86);
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(
+        calc(-50% + var(--food-drift)),
+        calc(100vh + 220px),
+        0
+      )
+      rotate(var(--food-rotation)) scale(1);
+  }
+}
+
+.restaurant-tooltip {
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12) !important;
+  padding: 7px 10px !important;
+}
+
+.restaurant-tooltip::before {
+  border-top-color: white !important;
+}
+
+.scrollbar-thin {
+  scrollbar-color: rgba(108, 109, 112, 0.28) transparent;
+  scrollbar-width: thin;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(108, 109, 112, 0.24);
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .leaflet-container {
+    height: 70vh;
+    min-height: 520px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
